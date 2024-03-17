@@ -1,5 +1,6 @@
 package com.uol.backend.Services;
 
+import com.uol.backend.Services.exceptions.DataIntegratyViolationException;
 import com.uol.backend.Services.exceptions.ObjectNotFoundException;
 import com.uol.backend.domain.User;
 import com.uol.backend.domain.dto.UserDTO;
@@ -30,6 +31,8 @@ class UserServiceTest {
     private static final String PHONE = "(00)00000-00123";
     private static final Status STATUS = Status.ATIVO;
     private static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado";
+    private static final String EMAIL_JA_CADASTRADO = "E-mail já cadastrado no sistema";
+    private static final String CPF_JA_CADASTRADO = "CPF já cadastrado no sistema";
 
 
     @InjectMocks
@@ -115,6 +118,32 @@ class UserServiceTest {
         assertEquals(CPF, response.getCpf());
         assertEquals(PHONE, response.getPhone());
         assertEquals(STATUS, response.getStatus());
+    }
+
+    @Test
+    void whenCreateThenReturnAnDataIntegrityViolationException() {
+        when(repository.findByEmail(anyString())).thenReturn(optionalUser);
+
+        try{
+            optionalUser.get().setId(2);
+            service.create(userDTO);
+        } catch (Exception ex) {
+            assertEquals(DataIntegratyViolationException.class, ex.getClass());
+            assertEquals(EMAIL_JA_CADASTRADO, ex.getMessage());
+        }
+    }
+
+    @Test
+    void whenCreateThenCPFReturnAnDataIntegrityViolationException() {
+        when(repository.findByCpf(anyString())).thenReturn(optionalUser);
+
+        try{
+            optionalUser.get().setId(3);
+            service.create(userDTO);
+        } catch (Exception ex) {
+            assertEquals(DataIntegratyViolationException.class, ex.getClass());
+            assertEquals(CPF_JA_CADASTRADO, ex.getMessage());
+        }
     }
 
     private void startUser() {

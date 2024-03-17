@@ -1,5 +1,6 @@
 package com.uol.backend.Services;
 
+import com.uol.backend.Services.exceptions.ObjectNotFoundException;
 import com.uol.backend.domain.User;
 import com.uol.backend.domain.dto.UserDTO;
 import com.uol.backend.domain.enums.Status;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +26,7 @@ class UserServiceTest {
     private static final String CPF = "123.456.789-00";
     private static final String PHONE = "(00)00000-00123";
     private static final Status STATUS = Status.ATIVO;
+    private static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado";
 
 
     @InjectMocks
@@ -32,6 +35,8 @@ class UserServiceTest {
     @Mock
     private UserRepository repository;
 
+    @Mock
+    private ModelMapper mapper;
 
     private User user;
     private UserDTO userDTO;
@@ -61,6 +66,19 @@ class UserServiceTest {
         assertEquals(STATUS, response.getStatus());
     }
 
+    @Test
+    void whenFindByIdThenReturnAnObjectNotFoundException() {
+
+        when(repository.findById(anyInt()))
+                .thenThrow(new ObjectNotFoundException(OBJETO_NAO_ENCONTRADO));
+
+        try{
+            service.findById(ID);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals(OBJETO_NAO_ENCONTRADO, ex.getMessage());
+        }
+    }
     private void startUser() {
         user = new User(ID, NAME, EMAIL, CPF, PHONE, STATUS);
         userDTO = new UserDTO(ID, NAME, EMAIL, CPF, PHONE, STATUS);

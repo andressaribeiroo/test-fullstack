@@ -161,6 +161,32 @@ class UserServiceTest {
         assertEquals(STATUS, response.getStatus());
     }
 
+    @Test
+    void whenUpdateThenReturnAnDataIntegrityViolationException() {
+        when(repository.findByEmail(anyString())).thenReturn(optionalUser);
+
+        try{
+            optionalUser.get().setId(2);
+            service.create(userDTO);
+        } catch (Exception ex) {
+            assertEquals(DataIntegratyViolationException.class, ex.getClass());
+            assertEquals(EMAIL_JA_CADASTRADO, ex.getMessage());
+        }
+    }
+
+    @Test
+    void whenUpdateCPFThenReturnAnDataIntegrityViolationException() {
+        when(repository.findByCpf(anyString())).thenReturn(optionalUser);
+
+        try{
+            optionalUser.get().setId(3);
+            service.create(userDTO);
+        } catch (Exception ex) {
+            assertEquals(DataIntegratyViolationException.class, ex.getClass());
+            assertEquals(CPF_JA_CADASTRADO, ex.getMessage());
+        }
+    }
+
     private void startUser() {
         user = new User(ID, NAME, EMAIL, CPF, PHONE, STATUS);
         userDTO = new UserDTO(ID, NAME, EMAIL, CPF, PHONE, STATUS);

@@ -145,6 +145,21 @@ class UserServiceTest {
             assertEquals(CPF_JA_CADASTRADO, ex.getMessage());
         }
     }
+    @Test
+    void whenUpdateThenReturnSuccess() {
+        when(repository.save(any())).thenReturn(user);
+
+        User response = service.update(userDTO);
+
+        assertNotNull(response);
+        assertEquals(User.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(NAME, response.getName());
+        assertEquals(EMAIL, response.getEmail());
+        assertEquals(CPF, response.getCpf());
+        assertEquals(PHONE, response.getPhone());
+        assertEquals(STATUS, response.getStatus());
+    }
 
     private void startUser() {
         user = new User(ID, NAME, EMAIL, CPF, PHONE, STATUS);

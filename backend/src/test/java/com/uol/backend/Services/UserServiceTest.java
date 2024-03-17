@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class UserServiceTest {
@@ -184,6 +184,26 @@ class UserServiceTest {
         } catch (Exception ex) {
             assertEquals(DataIntegratyViolationException.class, ex.getClass());
             assertEquals(CPF_JA_CADASTRADO, ex.getMessage());
+        }
+    }
+
+    @Test
+    void deleteWithSuccess() {
+        when(repository.findById(anyInt())).thenReturn(optionalUser);
+        doNothing().when(repository).deleteById(anyInt());
+        service.delete(ID);
+        verify(repository, times(1)).deleteById(anyInt());
+    }
+
+    @Test
+    void whenDeleteThenReturnObjectNotFoundException() {
+        when(repository.findById(anyInt()))
+                .thenThrow(new ObjectNotFoundException(OBJETO_NAO_ENCONTRADO));
+        try {
+            service.delete(ID);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals(OBJETO_NAO_ENCONTRADO, ex.getMessage());
         }
     }
 

@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -21,6 +23,7 @@ import static org.mockito.Mockito.when;
 class UserServiceTest {
 
     private static final Integer ID      = 1;
+    private static final Integer INDEX   = 0;
     private static final String NAME     = "teste";
     private static final String EMAIL    = "teste@mail.com";
     private static final String CPF = "123.456.789-00";
@@ -79,6 +82,25 @@ class UserServiceTest {
             assertEquals(OBJETO_NAO_ENCONTRADO, ex.getMessage());
         }
     }
+
+    @Test
+    void whenFindAllThenReturnAnListOfUsers() {
+        when(repository.findAll()).thenReturn(List.of(user));
+
+        List<User> response = service.findAll();
+
+        assertNotNull(response);
+        assertEquals(1, response.size());
+        assertEquals(User.class, response.get(INDEX).getClass());
+
+        assertEquals(ID, response.get(INDEX).getId());
+        assertEquals(NAME, response.get(INDEX).getName());
+        assertEquals(EMAIL, response.get(INDEX).getEmail());
+        assertEquals(CPF, response.get(INDEX).getCpf());
+        assertEquals(PHONE, response.get(INDEX).getPhone());
+        assertEquals(STATUS, response.get(INDEX).getStatus());
+    }
+
     private void startUser() {
         user = new User(ID, NAME, EMAIL, CPF, PHONE, STATUS);
         userDTO = new UserDTO(ID, NAME, EMAIL, CPF, PHONE, STATUS);

@@ -1,4 +1,4 @@
-package com.uol.backend.Services.exceptions;
+package com.uol.backend.services.exceptions;
 
 public class DataIntegratyViolationException extends RuntimeException{
 

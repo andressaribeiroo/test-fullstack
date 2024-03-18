@@ -1,6 +1,6 @@
-package com.uol.backend.Controller;
+package com.uol.backend.controller;
 
-import com.uol.backend.Services.UserService;
+import com.uol.backend.services.UserService;
 import com.uol.backend.domain.User;
 import com.uol.backend.domain.dto.UserDTO;
 import com.uol.backend.domain.enums.Status;

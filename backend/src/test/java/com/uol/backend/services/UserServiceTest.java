@@ -1,7 +1,7 @@
-package com.uol.backend.Services;
+package com.uol.backend.services;
 
-import com.uol.backend.Services.exceptions.DataIntegratyViolationException;
-import com.uol.backend.Services.exceptions.ObjectNotFoundException;
+import com.uol.backend.services.exceptions.DataIntegratyViolationException;
+import com.uol.backend.services.exceptions.ObjectNotFoundException;
 import com.uol.backend.domain.User;
 import com.uol.backend.domain.dto.UserDTO;
 import com.uol.backend.domain.enums.Status;

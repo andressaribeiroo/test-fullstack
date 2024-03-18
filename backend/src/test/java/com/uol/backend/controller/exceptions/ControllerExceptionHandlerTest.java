@@ -1,7 +1,7 @@
-package com.uol.backend.Controller.exceptions;
+package com.uol.backend.controller.exceptions;
 
-import com.uol.backend.Services.exceptions.DataIntegratyViolationException;
-import com.uol.backend.Services.exceptions.ObjectNotFoundException;
+import com.uol.backend.services.exceptions.DataIntegratyViolationException;
+import com.uol.backend.services.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

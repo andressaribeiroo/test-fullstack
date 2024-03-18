@@ -1,4 +1,4 @@
-package com.uol.backend.Controller.exceptions;
+package com.uol.backend.controller.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

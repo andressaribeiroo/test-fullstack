@@ -1,4 +1,4 @@
-package com.uol.backend.Config;
+package com.uol.backend.config;
 
 import com.uol.backend.domain.User;
 import com.uol.backend.domain.enums.Status;

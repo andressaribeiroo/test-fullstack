@@ -1,7 +1,7 @@
-package com.uol.backend.Controller.exceptions;
+package com.uol.backend.controller.exceptions;
 
-import com.uol.backend.Services.exceptions.DataIntegratyViolationException;
-import com.uol.backend.Services.exceptions.ObjectNotFoundException;
+import com.uol.backend.services.exceptions.DataIntegratyViolationException;
+import com.uol.backend.services.exceptions.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

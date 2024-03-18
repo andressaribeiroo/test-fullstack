@@ -1,6 +1,6 @@
-package com.uol.backend.Controller;
+package com.uol.backend.controller;
 
-import com.uol.backend.Services.UserService;
+import com.uol.backend.services.UserService;
 import com.uol.backend.domain.dto.UserDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,0 +1,19 @@
+.header-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    width: 100%;
+    padding: 15px 0; 
+  }
+  
+  .logo-container {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .logo {
+    width: auto;
+    height: 20px;
+  }
+  
